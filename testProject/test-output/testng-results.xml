@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="1" total="2" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-09-15T11:25:25 EDT" name="Default suite" finished-at="2025-09-15T11:25:31 EDT" duration-ms="5602">
+  <suite started-at="2025-09-24T12:20:33 EDT" name="Default suite" finished-at="2025-09-24T12:20:44 EDT" duration-ms="10135">
     <groups>
     </groups>
-    <test started-at="2025-09-15T11:25:25 EDT" name="Default test" finished-at="2025-09-15T11:25:31 EDT" duration-ms="5602">
-      <class name="smokeTest.H2DBTest">
-        <test-method signature="testDB()[pri:0, instance:smokeTest.H2DBTest@194fad1]" started-at="2025-09-15T11:25:25 EDT" name="testDB" finished-at="2025-09-15T11:25:31 EDT" duration-ms="5456" status="PASS">
+    <test started-at="2025-09-24T12:20:33 EDT" name="Default test" finished-at="2025-09-24T12:20:44 EDT" duration-ms="10135">
+      <class name="smokeTest.DemoIdentityServerTest">
+        <test-method signature="getApplications()[pri:0, instance:smokeTest.DemoIdentityServerTest@c05fddc]" started-at="2025-09-24T12:20:34 EDT" name="getApplications" finished-at="2025-09-24T12:20:43 EDT" duration-ms="9774" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testDB -->
-      </class> <!-- smokeTest.H2DBTest -->
+        </test-method> <!-- getApplications -->
+      </class> <!-- smokeTest.DemoIdentityServerTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

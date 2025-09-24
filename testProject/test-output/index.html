@@ -103,7 +103,7 @@
                     <div class="method-list-content passed suite-Default_suite">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="smokeTest.H2DBTest" class="method navigator-link" hash-for-method="testDB">testDB</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="smokeTest.DemoIdentityServerTest" class="method navigator-link" hash-for-method="getApplications">getApplications</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Default_suite -->
@@ -121,14 +121,14 @@
           <div class="suite-Default_suite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
-              <span class="class-name">smokeTest.H2DBTest</span>
+              <span class="class-name">smokeTest.DemoIdentityServerTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="testDB">
-                  </a> <!-- testDB -->
-                  <span class="method-name">testDB</span>
+                  <a name="getApplications">
+                  </a> <!-- getApplications -->
+                  <span class="method-name">getApplications</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -136,7 +136,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/private/var/folders/53/lc9zmzbd7kj051z_3651r2nr0000gn/T/testng-eclipse--2064361815/testng-customsuite.xml</span>
+            <span class="header-content">/private/var/folders/53/lc9zmzbd7kj051z_3651r2nr0000gn/T/testng-eclipse-668469892/testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -145,11 +145,11 @@
 &lt;suite name=&quot;Default suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Default test&quot; verbose=&quot;2&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;smokeTest.H2DBTest&quot;&gt;
+      &lt;class name=&quot;smokeTest.DemoIdentityServerTest&quot;&gt;
         &lt;methods&gt;
-          &lt;include name=&quot;testDB&quot;/&gt;
+          &lt;include name=&quot;getApplications&quot;/&gt;
         &lt;/methods&gt;
-      &lt;/class&gt; &lt;!-- smokeTest.H2DBTest --&gt;
+      &lt;/class&gt; &lt;!-- smokeTest.DemoIdentityServerTest --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -191,14 +191,14 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'testDB')
-data.setCell(0, 2, 'smokeTest.H2DBTest')
-data.setCell(0, 3, 5456);
+data.setCell(0, 1, 'getApplications')
+data.setCell(0, 2, 'smokeTest.DemoIdentityServerTest')
+data.setCell(0, 3, 9774);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 5 seconds</span>
+              <span class="suite-total-time">Total running time: 9 seconds</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -213,9 +213,16 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">0 ignored methods</span>
+            <span class="header-content">1 ignored method</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">smokeTest.DemoIdentityServerTest</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">genToken</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="chronological-Default_suite" class="panel">
@@ -224,9 +231,9 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">smokeTest.H2DBTest</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">smokeTest.DemoIdentityServerTest</div> <!-- chronological-class-name -->
               <div class="test-method">
-                <span class="method-name">testDB</span>
+                <span class="method-name">getApplications</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->

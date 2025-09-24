@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="smokeTest.H2DBTest">
+      <class name="smokeTest.CreateUserTest">
         <methods>
+          <include name="testCreateUser"/>
           <include name="quitDriver"/>
-          <include name="testDB"/>
           <include name="setUp"/>
         </methods>
-      </class> <!-- smokeTest.H2DBTest -->
+      </class> <!-- smokeTest.CreateUserTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

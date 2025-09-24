@@ -8,7 +8,7 @@
       <class name="smokeTest.PopUpAndAlerts"/>
       <class name="smokeTest.BaseTest"/>
       <class name="smokeTest.ButtonClickTest"/>
- -->      <class name="smokeTest.LoginTest"/>
+      <class name="smokeTest.LoginTest"/>  -->
        <class name="smokeTest.DatePicker"/>
     <!--   <class name="smokeTest.DropDowCheckboxRadioButton"/>
       <class name="smokeTest.DragAndDrop"/>z

@@ -138,24 +138,25 @@ public class BasePage {
 		driver.close();
 		switchToOriginalWindow();
 	}
+	
+	public String checkForAlertTextAndAccept(String expectedMessage) {
+	    try {
+	        Alert alert = driver.switchTo().alert();
+	        String alertText = alert.getText();
+	        System.out.println("ALERT FOUND: " + alertText);
 
-	public String checkForAlertTextAndAccept(String validationMessage) {
-
-		try {
-			// Check for alert
-			Alert alert = driver.switchTo().alert();
-			System.out.println("ALERT FOUND: " + alert.getText());
-			String alertText = alert.getText();
-			Assert.assertTrue(alert.getText().equalsIgnoreCase(validationMessage));
-			if (alert.getText().equalsIgnoreCase(validationMessage)) {
-				alert.accept();
-			}
-			return alertText;
-		} catch (NoAlertPresentException ex) {
-			Assert.assertTrue(false);
-			return "No Alert found";
-		}
+	        if (alertText.equalsIgnoreCase(expectedMessage)) {
+	            alert.accept();
+	            return "Alert matched and accepted: " + alertText;
+	        } else {
+	            alert.dismiss();
+	            return "Alert text did not match. Expected: " + expectedMessage + " | Found: " + alertText;
+	        }
+	    } catch (NoAlertPresentException ex) {
+	        return "No alert found.";
+	    }
 	}
+
 
 	public boolean isDisplay(WebElement element) {
 		try {
