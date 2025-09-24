@@ -6,9 +6,6 @@ import java.time.Duration;
 
 import java.util.NoSuchElementException;
 import java.util.Set;
-
-import org.apache.poi.ss.formula.atp.Switch;
-import org.jspecify.annotations.Nullable;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -20,8 +17,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-import base.PropertyReader;
 
 
 public class BasePage {
