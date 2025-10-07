@@ -7,15 +7,19 @@ import java.time.Duration;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
@@ -85,7 +89,39 @@ public class BasePage {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.visibilityOf(element));
 	}
+	
+	
+	// Implicit Wait (applies globally)
+    public void setImplicitWait(int seconds) {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(seconds));
+    }
+    
+    // Explicit Wait - Wait for element to be visible
+    public WebElement waitForVisibility(By locator, int seconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+	
+    // Explicit Wait - Wait for element to be clickable
+    public WebElement waitForClickability(By locator, int seconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+	
+    // Fluent Wait - Using Lambda Expression
+    public WebElement fluentWait(By locator, int timeoutSec, int pollingSec) {
+        Wait<WebDriver> wait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(timeoutSec))
+                .pollingEvery(Duration.ofSeconds(pollingSec))
+                .ignoring(NoSuchElementException.class)
+                .ignoring(StaleElementReferenceException.class);
 
+        // Lambda: retry findElement until it's found or timeout
+        return wait.until(d -> d.findElement(locator));
+    }
+
+    
+    
 	public void switchToNewWindow(WebElement clickableElement) {
 		originalWindowHandle = driver.getWindowHandle();
 		Set<String> oldWindows = driver.getWindowHandles();

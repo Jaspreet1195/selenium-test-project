@@ -1,6 +1,9 @@
 package smokeTest;
 
 import org.testng.annotations.Test;
+
+import baseTest.BaseTest;
+
 import org.testng.AssertJUnit;
 import java.util.List;
 
@@ -22,16 +25,16 @@ public class ToDoList extends BaseTest {
 	
 	@BeforeMethod
 	public void setup() {
-		toDoListPO= new ToDoListPO(driver);
-		homePagePO=new HomePagePO(driver);
+		toDoListPO= new ToDoListPO(getDriver());
+		homePagePO=new HomePagePO(getDriver());
 		
 	} 
 	
 	@Test
 	public void addIntoToDoList() {
 		homePagePO.switchToNewWindow(homePagePO.getToDoListHeader());
-		System.out.println(driver.getTitle());
-		AssertJUnit.assertTrue(driver.getTitle().equalsIgnoreCase("WebDriver | To Do List"));
+		System.out.println(getDriver().getTitle());
+		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | To Do List"));
 		toDoListPO.sendKeysPressEnter(toDoListPO.getAddInput(),"jaspreet");
 		boolean found = false;
 		List<WebElement> items = toDoListPO.getItems();
@@ -52,8 +55,8 @@ public class ToDoList extends BaseTest {
 	@Test	
 	public void deleteFromList() throws InterruptedException {
 		homePagePO.switchToNewWindow(homePagePO.getToDoListHeader());
-		System.out.println(driver.getTitle());
-		AssertJUnit.assertTrue(driver.getTitle().equalsIgnoreCase("WebDriver | To Do List"));
+		System.out.println(getDriver().getTitle());
+		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | To Do List"));
 		
 		boolean found = false;
 		List<WebElement> items = toDoListPO.getItems();
@@ -68,7 +71,7 @@ public class ToDoList extends BaseTest {
 		    }
 		}
 	
-		toDoListPO.moveAndClick(driver, toDoListPO.getDeleteButton(index));
+		toDoListPO.moveAndClick(getDriver(), toDoListPO.getDeleteButton(index));
 	}
 
 }

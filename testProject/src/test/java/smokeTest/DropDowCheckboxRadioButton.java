@@ -1,6 +1,9 @@
 package smokeTest;
 
 import org.testng.annotations.Test;
+
+import baseTest.BaseTest;
+
 import org.testng.AssertJUnit;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -18,8 +21,8 @@ public class DropDowCheckboxRadioButton extends BaseTest{
 	
 	@BeforeMethod
 	public void setup() {
-		dropDowCheckboxRadioButtonPO = new DropDowCheckboxRadioButtonPO(driver);
-		homePagePO = new HomePagePO(driver);
+		dropDowCheckboxRadioButtonPO = new DropDowCheckboxRadioButtonPO(getDriver());
+		homePagePO = new HomePagePO(getDriver());
 	}
 	
 //	@Test
@@ -28,8 +31,8 @@ public class DropDowCheckboxRadioButton extends BaseTest{
         dropDowCheckboxRadioButtonPO.switchToNewWindow(homePagePO.getDropdownCheckboxesHeader());
         
 		// Perform some action after switching
-		System.out.println("Currently in window: " + driver.getTitle());
-		AssertJUnit.assertTrue(driver.getTitle().equalsIgnoreCase("WebDriver | Dropdown Menu(s) | Checkboxe(s) | Radio Button(s)"));
+		System.out.println("Currently in window: " + getDriver().getTitle());
+		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | Dropdown Menu(s) | Checkboxe(s) | Radio Button(s)"));
 		
 		dropDowCheckboxRadioButtonPO.selectFromDropdown(dropDowCheckboxRadioButtonPO.getDropdownMenu1(), "Python");
 		dropDowCheckboxRadioButtonPO.selectFromDropdown(dropDowCheckboxRadioButtonPO.getDropdownMenu2(), "TestNG");
@@ -44,8 +47,8 @@ public class DropDowCheckboxRadioButton extends BaseTest{
 		    dropDowCheckboxRadioButtonPO.switchToNewWindow(homePagePO.getDropdownCheckboxesHeader());
 	        
 			// Perform some action after switching
-			System.out.println("Currently in window: " + driver.getTitle());
-			AssertJUnit.assertTrue(driver.getTitle().equalsIgnoreCase("WebDriver | Dropdown Menu(s) | Checkboxe(s) | Radio Button(s)"));
+			System.out.println("Currently in window: " + getDriver().getTitle());
+			AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | Dropdown Menu(s) | Checkboxe(s) | Radio Button(s)"));
 	        for (WebElement checkbox : dropDowCheckboxRadioButtonPO.getCheckboxes()) {	  
 	            if (checkbox.getAttribute("value").equalsIgnoreCase("option-1") || checkbox.getAttribute("value").equalsIgnoreCase("option-2")) {
 	            	dropDowCheckboxRadioButtonPO.clickElement(checkbox);	               
@@ -63,8 +66,8 @@ public class DropDowCheckboxRadioButton extends BaseTest{
 	
 		dropDowCheckboxRadioButtonPO.switchToNewWindow(homePagePO.getDropdownCheckboxesHeader());
 		// Perform some action after switching
-		System.out.println("Currently in window: " + driver.getTitle());
-		AssertJUnit.assertTrue(driver.getTitle().equalsIgnoreCase("WebDriver | Dropdown Menu(s) | Checkboxe(s) | Radio Button(s)"));
+		System.out.println("Currently in window: " + getDriver().getTitle());
+		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | Dropdown Menu(s) | Checkboxe(s) | Radio Button(s)"));
 		for (WebElement radioButton : dropDowCheckboxRadioButtonPO.getRadioButtons()) {
             if (radioButton.getAttribute("value").equalsIgnoreCase("green")) {
             	dropDowCheckboxRadioButtonPO.clickElement(radioButton);	               

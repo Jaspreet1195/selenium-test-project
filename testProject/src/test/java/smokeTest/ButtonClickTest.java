@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import base.PropertyReader;
+import baseTest.BaseTest;
 import pageObjects.ButtonClicksPO;
 
 public class ButtonClickTest extends BaseTest {
@@ -14,7 +15,7 @@ public class ButtonClickTest extends BaseTest {
 	
 	@BeforeMethod
 	public void setup() {
-	 buttonClicksPO = new ButtonClicksPO(driver);
+	 buttonClicksPO = new ButtonClicksPO(getDriver());
 	}
 
 	@Test

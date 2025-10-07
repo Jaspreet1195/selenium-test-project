@@ -1,6 +1,9 @@
 package smokeTest;
 
 import org.testng.annotations.Test;
+
+import baseTest.BaseTest;
+
 import org.testng.annotations.Test;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
@@ -21,7 +24,7 @@ public class LoginTest extends BaseTest {
 	@Feature("Login")
 	public void login() {
 		// launch browser
-		loginPO = new LoginPO(driver);
+		loginPO = new LoginPO(getDriver());
 		loginPO.loginFailed();
 	}
 

@@ -1,6 +1,9 @@
 package smokeTest;
 
 import org.testng.annotations.Test;
+
+import baseTest.BaseTest;
+
 import org.testng.AssertJUnit;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -18,8 +21,8 @@ public class DragAndDrop extends BaseTest{
 
 	@BeforeMethod
 	public void setup() {
-		dragAndDropPO = new DragAndDropPO(driver);
-		homePagePO = new HomePagePO(driver);
+		dragAndDropPO = new DragAndDropPO(getDriver());
+		homePagePO = new HomePagePO(getDriver());
 	}
 	
 	

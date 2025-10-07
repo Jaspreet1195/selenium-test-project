@@ -1,6 +1,9 @@
 package smokeTest;
 
 import org.testng.annotations.Test;
+
+import baseTest.BaseTest;
+
 import org.testng.AssertJUnit;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -16,16 +19,16 @@ public class PopUpAndAlerts extends BaseTest {
 
 	@BeforeMethod
 	public void setup() {
-		popUpAndAlertsPO = new PopUpAndAlertsPO(driver);
-		homePagePO= new HomePagePO(driver);
+		popUpAndAlertsPO = new PopUpAndAlertsPO(getDriver());
+		homePagePO= new HomePagePO(getDriver());
 	}
 
 //	@Test
 	public void javaScriptLoader() {
 		popUpAndAlertsPO.switchToNewWindow(homePagePO.getPopupAlertsHeader());
-		System.out.println(driver.getTitle());
-		AssertJUnit.assertTrue(driver.getTitle().equalsIgnoreCase("WebDriver | Popups & Alerts"));
-		popUpAndAlertsPO.javascriptClickElement(driver, popUpAndAlertsPO.getJsAlertButton());
+		System.out.println(getDriver().getTitle());
+		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | Popups & Alerts"));
+		popUpAndAlertsPO.javascriptClickElement(getDriver(), popUpAndAlertsPO.getJsAlertButton());
 		popUpAndAlertsPO.checkForAlertTextAndAccept("I am an alert box!");
 		popUpAndAlertsPO.closeCurrentAndReturn();
 	}
@@ -37,8 +40,8 @@ public class PopUpAndAlerts extends BaseTest {
 	@Test
 	public void ajaxLoader() {
 		popUpAndAlertsPO.switchToNewWindow(homePagePO.getPopupAlertsHeader());
-		System.out.println(driver.getTitle());
-		AssertJUnit.assertTrue(driver.getTitle().equalsIgnoreCase("WebDriver | Popups & Alerts"));
+		System.out.println(getDriver().getTitle());
+		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | Popups & Alerts"));
 		popUpAndAlertsPO.clickElement(popUpAndAlertsPO.getAjaxLoaderButton());
 		popUpAndAlertsPO.clickElement(popUpAndAlertsPO.getClickMeButton());
 		popUpAndAlertsPO.clickElement(popUpAndAlertsPO.getCloseButton());
@@ -48,9 +51,9 @@ public class PopUpAndAlerts extends BaseTest {
 //	@Test
 	public void javaScriptConfirmBoxAccept() {
 		popUpAndAlertsPO.switchToNewWindow(homePagePO.getPopupAlertsHeader());
-		System.out.println(driver.getTitle());
-		AssertJUnit.assertTrue(driver.getTitle().equalsIgnoreCase("WebDriver | Popups & Alerts"));
-		popUpAndAlertsPO.javascriptClickElement(driver, popUpAndAlertsPO.getJsConfirmButton());
+		System.out.println(getDriver().getTitle());
+		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | Popups & Alerts"));
+		popUpAndAlertsPO.javascriptClickElement(getDriver(), popUpAndAlertsPO.getJsConfirmButton());
 		popUpAndAlertsPO.checkForAlertTextAndAccept("Press a button!");
 		AssertJUnit.assertTrue(popUpAndAlertsPO.isDisplay(popUpAndAlertsPO.getConfirmAlertBoxText()));
 		popUpAndAlertsPO.closeCurrentAndReturn();

@@ -1,6 +1,9 @@
 package smokeTest;
 
 import org.testng.annotations.Test;
+
+import baseTest.BaseTest;
+
 import org.testng.AssertJUnit;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -17,8 +20,8 @@ public class DatePicker extends BaseTest{
 
 	@BeforeMethod
 	public void setup() {
-		datePickerPO= new DatePickerPO(driver);
-		homePagePO = new HomePagePO(driver);
+		datePickerPO= new DatePickerPO(getDriver());
+		homePagePO = new HomePagePO(getDriver());
 	}
 	
 	
@@ -47,7 +50,7 @@ public class DatePicker extends BaseTest{
 		
 //		year and date is correct select date only
 		datePickerPO.selectPreviousDate("25", "Sep", 2025);
-		
+//		Assert.assertTrue(false);
 		
 	}
 

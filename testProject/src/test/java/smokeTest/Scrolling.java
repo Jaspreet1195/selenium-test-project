@@ -1,6 +1,9 @@
 package smokeTest;
 
 import org.testng.annotations.Test;
+
+import baseTest.BaseTest;
+
 import org.testng.AssertJUnit;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -18,17 +21,17 @@ public class Scrolling extends BaseTest {
 	
 	@BeforeMethod
 	public void setup() {
-		scrollingPO= new ScrollingPO(driver);
-		homePagePO=new HomePagePO(driver);
+		scrollingPO= new ScrollingPO(getDriver());
+		homePagePO=new HomePagePO(getDriver());
 		
 	}
 
 	@Test
 	public void scollToZone1() {
 		scrollingPO.switchToNewWindow(homePagePO.getScrollingHeader());
-		AssertJUnit.assertTrue(driver.getTitle().equalsIgnoreCase("WebDriver | Scrolling"));
+		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | Scrolling"));
 		
-		scrollingPO.moveAndClick(driver, scrollingPO.getZone1Header());
+		scrollingPO.moveAndClick(getDriver(), scrollingPO.getZone1Header());
 //		scrollingPO.scrollIntoView(scrollingPO.getZone1Header(), ScrollType.SCROLL_INTO_ELEMENT);
 		AssertJUnit.assertTrue(scrollingPO.isDisplay(scrollingPO.getZone1HeaderAfterHover()));
 		scrollingPO.closeCurrentAndReturn();
@@ -37,8 +40,8 @@ public class Scrolling extends BaseTest {
 	@Test
 	public void scollToZone2() {
 		scrollingPO.switchToNewWindow(homePagePO.getScrollingHeader());
-		AssertJUnit.assertTrue(driver.getTitle().equalsIgnoreCase("WebDriver | Scrolling"));
-		scrollingPO.moveAndClick(driver, scrollingPO.getZone2Header());
+		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | Scrolling"));
+		scrollingPO.moveAndClick(getDriver(), scrollingPO.getZone2Header());
 		AssertJUnit.assertTrue(scrollingPO.getZone2Header().getText().equalsIgnoreCase("1 Entries"));
 		scrollingPO.closeCurrentAndReturn();
 	}
@@ -46,8 +49,8 @@ public class Scrolling extends BaseTest {
 	@Test
 	public void scollToZone3() {
 		scrollingPO.switchToNewWindow(homePagePO.getScrollingHeader());
-		AssertJUnit.assertTrue(driver.getTitle().equalsIgnoreCase("WebDriver | Scrolling"));
-		scrollingPO.moveAndClick(driver, scrollingPO.getZone3Header());
+		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | Scrolling"));
+		scrollingPO.moveAndClick(getDriver(), scrollingPO.getZone3Header());
 		AssertJUnit.assertTrue(scrollingPO.getZone3Header().getText().equalsIgnoreCase("1 Entries"));
 		scrollingPO.closeCurrentAndReturn();
 	}
@@ -56,8 +59,8 @@ public class Scrolling extends BaseTest {
 	@Test
 	public void scollToZone4() {
 		scrollingPO.switchToNewWindow(homePagePO.getScrollingHeader());
-		AssertJUnit.assertTrue(driver.getTitle().equalsIgnoreCase("WebDriver | Scrolling"));
-		scrollingPO.moveAndClick(driver, scrollingPO.getZone4Header());
+		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | Scrolling"));
+		scrollingPO.moveAndClick(getDriver(), scrollingPO.getZone4Header());
 		AssertJUnit.assertTrue(scrollingPO.getZone4Header().getText().contains("X") 
 			    && scrollingPO.getZone4Header().getText().contains("Y"));
 		scrollingPO.closeCurrentAndReturn();
