@@ -117,7 +117,6 @@
           <!-- Forking -->
           <forkCount>1</forkCount>
           <reuseForks>false</reuseForks>
-          <debugForkedProcess>true</debugForkedProcess>
 
           <!-- JVM args -->
           <argLine>-Xmx1024m -Djava.awt.headless=true</argLine>
