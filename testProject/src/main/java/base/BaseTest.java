@@ -1,5 +1,5 @@
 
-package baseTest;
+package base;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
@@ -12,7 +12,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 
-import base.PropertyReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import org.openqa.selenium.WebDriver;

@@ -1,6 +1,5 @@
-package baseTest;
+package base;
 
-import base.PropertyReader;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 

@@ -29,7 +29,7 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>4.35.0</version>
+      <version>4.38.0</version>
     </dependency>
 
     <!-- WebDriverManager -->
@@ -71,7 +71,6 @@
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
       <version>5.4.0</version>
-      <scope>test</scope>
     </dependency>
 
     <!-- JSON library -->
@@ -80,6 +79,7 @@
       <artifactId>json</artifactId>
       <version>20240303</version>
     </dependency>
+
   </dependencies>
 
   <build>
@@ -134,7 +134,7 @@
       <plugin>
         <groupId>io.qameta.allure</groupId>
         <artifactId>allure-maven</artifactId>
-        <version>2.11.2</version>
+        <version>2.24.0</version>
       </plugin>
     </plugins>
   </build>

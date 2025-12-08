@@ -3,7 +3,7 @@ package smokeTest;
 import org.testng.annotations.Test;
 
 import base.PropertyReader;
-import baseTest.RestUtils;
+import base.RestUtils;
 
 //imporom.github.dockerjava.transport.DockerHttpClient.Response;
 

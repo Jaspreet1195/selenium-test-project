@@ -2,7 +2,7 @@ package smokeTest;
 
 import org.testng.annotations.Test;
 
-import baseTest.BaseTest;
+import base.BaseTest;
 
 import org.testng.AssertJUnit;
 import java.util.List;

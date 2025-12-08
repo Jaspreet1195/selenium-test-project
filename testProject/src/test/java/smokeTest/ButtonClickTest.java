@@ -6,8 +6,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import base.BaseTest;
 import base.PropertyReader;
-import baseTest.BaseTest;
 import pageObjects.ButtonClicksPO;
 
 public class ButtonClickTest extends BaseTest {

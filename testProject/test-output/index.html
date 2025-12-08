@@ -144,7 +144,8 @@
 &lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
 &lt;suite name=&quot;SmokeSuite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;listeners&gt;
-    &lt;listener class-name=&quot;baseTest.TestListener&quot;/&gt;
+    &lt;listener class-name=&quot;base.TestListener&quot;/&gt;
+    &lt;listener class-name=&quot;io.qameta.allure.testng.AllureTestNg&quot;/&gt;
   &lt;/listeners&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Test&quot;&gt;
     &lt;parameter name=&quot;browser&quot; value=&quot;chrome&quot;/&gt;
@@ -193,12 +194,12 @@ data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'selectDateOfLastMonth')
 data.setCell(0, 2, 'smokeTest.DatePicker')
-data.setCell(0, 3, 16197);
+data.setCell(0, 3, 15533);
 window.suiteTableData['SmokeSuite']= { tableData: data, tableDiv: 'times-div-SmokeSuite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 16 seconds</span>
+              <span class="suite-total-time">Total running time: 15 seconds</span>
               <div id="times-div-SmokeSuite">
               </div> <!-- times-div-SmokeSuite -->
             </div> <!-- times-div -->
@@ -231,15 +232,15 @@ return data;
               </div> <!-- configuration-method before -->
               <div class="configuration-method before">
                 <span class="method-name">setup</span>
-                <span class="method-start">9292 ms</span>
+                <span class="method-start">13729 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">selectDateOfLastMonth</span>
-                <span class="method-start">9324 ms</span>
+                <span class="method-start">13771 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">quitDriver</span>
-                <span class="method-start">25551 ms</span>
+                <span class="method-start">29332 ms</span>
               </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

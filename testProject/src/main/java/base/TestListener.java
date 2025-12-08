@@ -1,4 +1,4 @@
-package baseTest;
+package base;
 
 import java.io.File;
 import java.nio.file.Files;
