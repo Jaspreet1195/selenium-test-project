@@ -2,7 +2,6 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="SmokeSuite">
   <listeners>
-    <listener class-name="base.TestListener"/>
     <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
   </listeners>
 
