@@ -1,14 +1,11 @@
 package pageObjects;
 
+import base.BasePage;
 import org.openqa.selenium.WebDriver;
 
-import base.BasePage;
+public class HiddenElementsPO extends BasePage {
 
-public class HiddenElementsPO extends BasePage{
-
-	public HiddenElementsPO (WebDriver driver){
-		super(driver);
-	}
-	
-	
+  public HiddenElementsPO(WebDriver driver) {
+    super(driver);
+  }
 }

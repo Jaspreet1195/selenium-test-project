@@ -1,67 +1,43 @@
 package pageObjects;
 
-import org.openqa.selenium.Alert;
+import base.BasePage;
+import base.PropertyReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
-
-import base.BasePage;
-import base.PropertyReader;
 
 public class LoginPO extends BasePage {
 
-	Alert alert;
+  public LoginPO(WebDriver driver) {
+    super(driver);
+  }
 
-	// Constructor initializes PageFactory
-	public LoginPO(WebDriver driver) {
-		super(driver);
-	}
+  @FindBy(xpath = "//h1[contains(text(),'LOGIN PORTAL')]")
+  private WebElement loginPortalHeader;
 
-	// Page Locator
-	@FindBy(xpath = "//h1[contains(text(),'LOGIN PORTAL')]")
-	private WebElement loginPortalHeader;
+  @FindBy(xpath = "//input[@placeholder = 'Username']")
+  private WebElement username;
 
-	@FindBy(xpath = "//input[@placeholder = 'Username']")
-	private WebElement username;
+  @FindBy(id = "password")
+  private WebElement password;
 
-	@FindBy(id = "password")
-	private WebElement password;
+  @FindBy(id = "login-button")
+  private WebElement loginButton;
 
-	@FindBy(id = "login-button")
-	private WebElement loginButton;
+  public String loginFailed() {
+    switchToNewWindow(loginPortalHeader);
+    validateLoginWindow();
+    sendKeys(username, PropertyReader.get("username"));
+    sendKeys(password, PropertyReader.get("password"));
+    clickElement(loginButton);
+    String alertMessage = checkForAlertTextAndAccept("validation failed");
+    closeCurrentAndReturn();
+    return alertMessage;
+  }
 
-	// Page actions
-	public WebElement getClickLoginButton() {
-		return loginPortalHeader;
-	}
-
-	public WebElement getUserNameButton() {
-		return username;
-	}
-
-	public WebElement getPassowrdButton() {
-		return password;
-	}
-
-	public WebElement getLoginButton() {
-		return loginButton;
-	}
-
-	// re-usable methods
-	public void loginFailed() {
-
-		switchToNewWindow(loginPortalHeader);
-
-		// Perform some action after switching
-		System.out.println("Currently in window: " + driver.getTitle());
-
-		Assert.assertTrue(driver.getTitle().equalsIgnoreCase("WebDriver | Login Portal"));
-		sendKeys(username, PropertyReader.get("username"));
-		sendKeys(password, PropertyReader.get("password"));
-		clickElement(loginButton);
-		checkForAlertTextAndAccept("validation failed");
-		closeCurrentAndReturn();
-	}
-
+  private void validateLoginWindow() {
+    if (!driver.getTitle().equalsIgnoreCase("WebDriver | Login Portal")) {
+      throw new IllegalStateException("Unexpected login portal title: " + driver.getTitle());
+    }
+  }
 }

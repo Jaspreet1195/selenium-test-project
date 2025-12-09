@@ -1,80 +1,68 @@
 package smokeTest;
 
-import org.testng.annotations.Test;
-
 import base.BaseTest;
-
-import org.testng.AssertJUnit;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import pageObjects.ButtonClicksPO;
 import pageObjects.DropDowCheckboxRadioButtonPO;
 import pageObjects.HomePagePO;
 
-public class DropDowCheckboxRadioButton extends BaseTest{
-	
-	DropDowCheckboxRadioButtonPO dropDowCheckboxRadioButtonPO;
-	HomePagePO homePagePO;
-	
-	@BeforeMethod
-	public void setup() {
-		dropDowCheckboxRadioButtonPO = new DropDowCheckboxRadioButtonPO(getDriver());
-		homePagePO = new HomePagePO(getDriver());
-	}
-	
-//	@Test
-	//Test dropDown
-	public void dropdown() {
-        dropDowCheckboxRadioButtonPO.switchToNewWindow(homePagePO.getDropdownCheckboxesHeader());
-        
-		// Perform some action after switching
-		System.out.println("Currently in window: " + getDriver().getTitle());
-		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | Dropdown Menu(s) | Checkboxe(s) | Radio Button(s)"));
-		
-		dropDowCheckboxRadioButtonPO.selectFromDropdown(dropDowCheckboxRadioButtonPO.getDropdownMenu1(), "Python");
-		dropDowCheckboxRadioButtonPO.selectFromDropdown(dropDowCheckboxRadioButtonPO.getDropdownMenu2(), "TestNG");
-		dropDowCheckboxRadioButtonPO.selectFromDropdown(dropDowCheckboxRadioButtonPO.getDropdownMenu3(), "CSS");
-		
-		
-	}
-	
-//	@Test
-	//Test checkbox
-	public void checkbox() {
-		    dropDowCheckboxRadioButtonPO.switchToNewWindow(homePagePO.getDropdownCheckboxesHeader());
-	        
-			// Perform some action after switching
-			System.out.println("Currently in window: " + getDriver().getTitle());
-			AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | Dropdown Menu(s) | Checkboxe(s) | Radio Button(s)"));
-	        for (WebElement checkbox : dropDowCheckboxRadioButtonPO.getCheckboxes()) {	  
-	            if (checkbox.getAttribute("value").equalsIgnoreCase("option-1") || checkbox.getAttribute("value").equalsIgnoreCase("option-2")) {
-	            	dropDowCheckboxRadioButtonPO.clickElement(checkbox);	               
-	            }	  	            
-	            else if(checkbox.getAttribute("value").equalsIgnoreCase("option-3") && checkbox.isEnabled()) {
-	            	dropDowCheckboxRadioButtonPO.clickElement(checkbox);
-	            }	            
-	        }
-	        
-	        dropDowCheckboxRadioButtonPO.closeCurrentAndReturn();
-	    }
-	
-	@Test
-	public void RadioButton() {
-	
-		dropDowCheckboxRadioButtonPO.switchToNewWindow(homePagePO.getDropdownCheckboxesHeader());
-		// Perform some action after switching
-		System.out.println("Currently in window: " + getDriver().getTitle());
-		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | Dropdown Menu(s) | Checkboxe(s) | Radio Button(s)"));
-		for (WebElement radioButton : dropDowCheckboxRadioButtonPO.getRadioButtons()) {
-            if (radioButton.getAttribute("value").equalsIgnoreCase("green")) {
-            	dropDowCheckboxRadioButtonPO.clickElement(radioButton);	               
-            }	  	                        
-        }
-		  dropDowCheckboxRadioButtonPO.closeCurrentAndReturn();
-	}
-	
-	
-	}
+public class DropDowCheckboxRadioButton extends BaseTest {
+
+  private DropDowCheckboxRadioButtonPO dropdownPage;
+  private HomePagePO homePagePO;
+
+  @BeforeMethod(alwaysRun = true)
+  public void setup() {
+    dropdownPage = new DropDowCheckboxRadioButtonPO(getDriver());
+    homePagePO = new HomePagePO(getDriver());
+  }
+
+  @Test(groups = "ui")
+  public void dropdownSelectionsShouldPersist() {
+    dropdownPage.switchToNewWindow(homePagePO.getDropdownCheckboxesHeader());
+    Assert.assertEquals(
+        getDriver().getTitle(), "WebDriver | Dropdown Menu(s) | Checkboxe(s) | Radio Button(s)");
+
+    dropdownPage.selectFromDropdown(dropdownPage.getDropdownMenu1(), "Python");
+    dropdownPage.selectFromDropdown(dropdownPage.getDropdownMenu2(), "TestNG");
+    dropdownPage.selectFromDropdown(dropdownPage.getDropdownMenu3(), "CSS");
+
+    Assert.assertEquals(
+        new Select(dropdownPage.getDropdownMenu1()).getFirstSelectedOption().getText(), "Python");
+    Assert.assertEquals(
+        new Select(dropdownPage.getDropdownMenu2()).getFirstSelectedOption().getText(), "TestNG");
+    Assert.assertEquals(
+        new Select(dropdownPage.getDropdownMenu3()).getFirstSelectedOption().getText(), "CSS");
+
+    dropdownPage.closeCurrentAndReturn();
+  }
+
+  @Test(groups = "ui")
+  public void checkboxSelectionsCanBeToggled() {
+    dropdownPage.switchToNewWindow(homePagePO.getDropdownCheckboxesHeader());
+    for (WebElement checkbox : dropdownPage.getCheckboxes()) {
+      if (!checkbox.isSelected()) {
+        dropdownPage.clickElement(checkbox);
+      }
+      Assert.assertTrue(
+          checkbox.isSelected(), "Checkbox should be selected: " + checkbox.getAttribute("value"));
+    }
+    dropdownPage.closeCurrentAndReturn();
+  }
+
+  @Test(groups = "ui")
+  public void radioButtonsAllowSingleSelection() {
+    dropdownPage.switchToNewWindow(homePagePO.getDropdownCheckboxesHeader());
+    for (WebElement radioButton : dropdownPage.getRadioButtons()) {
+      if (radioButton.getAttribute("value").equalsIgnoreCase("green")) {
+        dropdownPage.clickElement(radioButton);
+        Assert.assertTrue(radioButton.isSelected());
+        break;
+      }
+    }
+    dropdownPage.closeCurrentAndReturn();
+  }
+}

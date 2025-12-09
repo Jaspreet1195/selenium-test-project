@@ -1,31 +1,33 @@
 package smokeTest;
 
-import org.testng.annotations.Test;
-
 import base.BaseTest;
-
-import org.testng.annotations.Test;
 import io.qameta.allure.Description;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-
-
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import pageObjects.LoginPO;
 
 public class LoginTest extends BaseTest {
-	LoginPO loginPO;
+  private LoginPO loginPO;
 
-	@Test(description = "Verify login with valid credentials")
-	@Description("This test verifies that a user can log in successfully.")
-	@Severity(SeverityLevel.BLOCKER)
-	@Epic("Authentication")
-	@Feature("Login")
-	public void login() {
-		// launch browser
-		loginPO = new LoginPO(getDriver());
-		loginPO.loginFailed();
-	}
+  @BeforeMethod(alwaysRun = true)
+  public void init() {
+    loginPO = new LoginPO(getDriver());
+  }
 
+  @Test(description = "Verify login with invalid credentials shows validation", groups = "ui")
+  @Description(
+      "This test verifies that a user sees validation failed message when invalid credentials are used.")
+  @Severity(SeverityLevel.BLOCKER)
+  @Epic("Authentication")
+  @Feature("Login")
+  public void loginShowsValidationMessage() {
+    String alertMessage = loginPO.loginFailed();
+    Assert.assertTrue(
+        alertMessage.toLowerCase().contains("validation"), "Expected validation alert.");
+  }
 }

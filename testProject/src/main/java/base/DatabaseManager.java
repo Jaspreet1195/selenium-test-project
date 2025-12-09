@@ -1,102 +1,103 @@
 package base;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
 
+public class DatabaseManager implements AutoCloseable {
 
-public class DatabaseManager {
+  private static final Logger LOGGER = Logger.getLogger(DatabaseManager.class.getName());
 
-    private static final String JDBC_URL = "jdbc:h2:mem:testdb"; // in-memory database
-    private static final String JDBC_USER = "sa";
-    private static final String JDBC_PASSWORD = "";
-    private static final String JDBC_DRIVER = "org.h2.Driver";
+  private final Connection connection;
 
-    private Connection connection;
+  public DatabaseManager() throws SQLException {
+    this(
+        PropertyReader.getOrDefault("db.url", "jdbc:h2:mem:testdb"),
+        PropertyReader.getOrDefault("db.user", "sa"),
+        PropertyReader.getOrDefault("db.password", ""),
+        PropertyReader.getOrDefault("db.driver", "org.h2.Driver"));
+  }
 
-    // Constructor - establishes connection
-    public DatabaseManager() {
-        try {
-            Class.forName(JDBC_DRIVER);
-            connection = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-            System.out.println(" H2 Database connected successfully!");
-            
-         // ✅ Added validation check
-            if (connection == null) {
-                throw new SQLException("Database connection failed. Check if H2 driver is available.");
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+  public DatabaseManager(String url, String username, String password, String driver)
+      throws SQLException {
+    try {
+      Class.forName(driver);
+    } catch (ClassNotFoundException e) {
+      throw new IllegalStateException("Database driver not found: " + driver, e);
     }
+    this.connection = DriverManager.getConnection(url, username, password);
+  }
 
-    // ----------------- CREATE TABLE -----------------
-    public void createTable(String createQuery) throws SQLException {
-        try (Statement stmt = connection.createStatement()) {
-            stmt.execute(createQuery);
-            System.out.println("✅ Table created successfully!");
-        }
+  public void createTable(String createQuery) throws SQLException {
+    try (Statement stmt = connection.createStatement()) {
+      stmt.execute(createQuery);
+      LOGGER.info(() -> "Table created with statement: " + createQuery);
     }
+  }
 
-    // ----------------- INSERT -----------------
-    public void insert(String query, Object... params) throws SQLException {
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            setParameters(stmt, params);
-            stmt.executeUpdate();
-            System.out.println("✅ Insert successful!");
-        }
+  public int insert(String query, Object... params) throws SQLException {
+    return executeUpdate(query, params);
+  }
+
+  public List<Map<String, Object>> read(String query, Object... params) throws SQLException {
+    try (PreparedStatement stmt = connection.prepareStatement(query)) {
+      setParameters(stmt, params);
+      try (ResultSet rs = stmt.executeQuery()) {
+        return mapResultSet(rs);
+      }
     }
+  }
 
-    // ----------------- READ -----------------
-    public void read(String query, Object... params) throws SQLException {
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            setParameters(stmt, params);
-            ResultSet rs = stmt.executeQuery();
-            ResultSetMetaData meta = rs.getMetaData();
-            int columnCount = meta.getColumnCount();
+  public int update(String query, Object... params) throws SQLException {
+    return executeUpdate(query, params);
+  }
 
-            while (rs.next()) {
-                for (int i = 1; i <= columnCount; i++) {
-                    System.out.print(meta.getColumnName(i) + ": " + rs.getObject(i) + " | ");
-                }
-                System.out.println();
-            }
-        }
+  public int delete(String query, Object... params) throws SQLException {
+    return executeUpdate(query, params);
+  }
+
+  private int executeUpdate(String query, Object... params) throws SQLException {
+    try (PreparedStatement stmt = connection.prepareStatement(query)) {
+      setParameters(stmt, params);
+      return stmt.executeUpdate();
     }
+  }
 
-    // ----------------- UPDATE -----------------
-    public void update(String query, Object... params) throws SQLException {
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            setParameters(stmt, params);
-            int rows = stmt.executeUpdate();
-            System.out.println("✅ Update successful! Rows affected: " + rows);
-        }
-    }
+  private List<Map<String, Object>> mapResultSet(ResultSet rs) throws SQLException {
+    List<Map<String, Object>> rows = new ArrayList<>();
+    ResultSetMetaData meta = rs.getMetaData();
+    int columnCount = meta.getColumnCount();
 
-    // ----------------- DELETE -----------------
-    public void delete(String query, Object... params) throws SQLException {
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            setParameters(stmt, params);
-            int rows = stmt.executeUpdate();
-            System.out.println("✅ Delete successful! Rows affected: " + rows);
-        }
+    while (rs.next()) {
+      Map<String, Object> row = new HashMap<>();
+      for (int i = 1; i <= columnCount; i++) {
+        row.put(meta.getColumnLabel(i), rs.getObject(i));
+      }
+      rows.add(row);
     }
+    return rows;
+  }
 
-    // ----------------- Utility: Set PreparedStatement Params -----------------
-    private void setParameters(PreparedStatement stmt, Object... params) throws SQLException {
-        for (int i = 0; i < params.length; i++) {
-            stmt.setObject(i + 1, params[i]);
-        }
+  private void setParameters(PreparedStatement stmt, Object... params) throws SQLException {
+    for (int i = 0; i < params.length; i++) {
+      stmt.setObject(i + 1, params[i]);
     }
+  }
 
-    // ----------------- Close Connection -----------------
-    public void close() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-                System.out.println("❎ H2 Database connection closed.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+  @Override
+  public void close() throws SQLException {
+    if (connection != null && !connection.isClosed()) {
+      connection.close();
+      LOGGER.info("Database connection closed.");
     }
+  }
 }

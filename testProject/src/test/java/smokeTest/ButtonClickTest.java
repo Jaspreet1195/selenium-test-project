@@ -1,27 +1,26 @@
 package smokeTest;
 
-import org.testng.annotations.Test;
+import base.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import base.BaseTest;
-import base.PropertyReader;
 import pageObjects.ButtonClicksPO;
 
 public class ButtonClickTest extends BaseTest {
-	ButtonClicksPO buttonClicksPO ;
-	
-	@BeforeMethod
-	public void setup() {
-	 buttonClicksPO = new ButtonClicksPO(getDriver());
-	}
+  private ButtonClicksPO buttonClicksPO;
 
-	@Test
-	public void webeElemntClick() {
-		buttonClicksPO.buttonClicks();
-		buttonClicksPO.javascriptClick();
-		buttonClicksPO.actionMoveClick();
-	}
+  @BeforeMethod(alwaysRun = true)
+  public void setup() {
+    buttonClicksPO = new ButtonClicksPO(getDriver());
+  }
+
+  @Test(groups = "ui")
+  public void buttonVariantsShouldDisplayConfirmationMessages() {
+    Assert.assertTrue(
+        buttonClicksPO.buttonClicks(), "Standard click should show confirmation message");
+    Assert.assertTrue(
+        buttonClicksPO.javascriptClick(), "JavaScript click should show confirmation message");
+    Assert.assertTrue(
+        buttonClicksPO.actionMoveClick(), "Action API click should show confirmation message");
+  }
 }

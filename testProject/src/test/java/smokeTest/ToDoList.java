@@ -1,77 +1,62 @@
 package smokeTest;
 
-import org.testng.annotations.Test;
-
 import base.BaseTest;
-
-import org.testng.AssertJUnit;
 import java.util.List;
-
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import pageObjects.HomePagePO;
-import pageObjects.ScrollingPO;
 import pageObjects.ToDoListPO;
 
 public class ToDoList extends BaseTest {
-	ToDoListPO toDoListPO;
-	HomePagePO homePagePO;
-	
-	@BeforeMethod
-	public void setup() {
-		toDoListPO= new ToDoListPO(getDriver());
-		homePagePO=new HomePagePO(getDriver());
-		
-	} 
-	
-	@Test
-	public void addIntoToDoList() {
-		homePagePO.switchToNewWindow(homePagePO.getToDoListHeader());
-		System.out.println(getDriver().getTitle());
-		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | To Do List"));
-		toDoListPO.sendKeysPressEnter(toDoListPO.getAddInput(),"jaspreet");
-		boolean found = false;
-		List<WebElement> items = toDoListPO.getItems();
-		for(WebElement item : items) {
-			if (item.getText().equals("jaspreet")) {
-		        found = true;
-		        break; // stop loop once found
-		    }
+  private ToDoListPO toDoListPO;
+  private HomePagePO homePagePO;
 
-		}
+  @BeforeMethod(alwaysRun = true)
+  public void setup() {
+    toDoListPO = new ToDoListPO(getDriver());
+    homePagePO = new HomePagePO(getDriver());
+  }
 
-		// Fail test if not found
-		Assert.assertTrue(found, "Text jaspreet was NOT found in the todo list!");
+  @Test(groups = "ui")
+  public void addIntoToDoList() {
+    homePagePO.switchToNewWindow(homePagePO.getToDoListHeader());
+    Assert.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | To Do List"));
 
-	}
-	
-	
-	@Test	
-	public void deleteFromList() throws InterruptedException {
-		homePagePO.switchToNewWindow(homePagePO.getToDoListHeader());
-		System.out.println(getDriver().getTitle());
-		AssertJUnit.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | To Do List"));
-		
-		boolean found = false;
-		List<WebElement> items = toDoListPO.getItems();
-		int index = -1;  // default = not found
+    String taskName = "task-" + System.currentTimeMillis();
+    toDoListPO.sendKeysPressEnter(toDoListPO.getAddInput(), taskName);
+    Assert.assertTrue(isItemPresent(taskName), "Newly added task should be present in the list.");
+  }
 
-		for (int i = 0; i <= items.size(); i++) {
-			System.out.println("index outside if loop is: "+ i);
-		    if (items.get(i).getText().equals("Practice magic")) {
-		    	System.out.println("index is: "+ i);
-		        index = i+ 1;
-		        break; // stop once found
-		    }
-		}
-	
-		toDoListPO.moveAndClick(getDriver(), toDoListPO.getDeleteButton(index));
-	}
+  @Test(groups = "ui")
+  public void deleteFromList() {
+    homePagePO.switchToNewWindow(homePagePO.getToDoListHeader());
+    Assert.assertTrue(getDriver().getTitle().equalsIgnoreCase("WebDriver | To Do List"));
 
+    String taskName = "cleanup-" + System.currentTimeMillis();
+    toDoListPO.sendKeysPressEnter(toDoListPO.getAddInput(), taskName);
+    Assert.assertTrue(isItemPresent(taskName), "Task must exist before deletion");
+
+    int index = findItemIndex(taskName);
+    Assert.assertTrue(index >= 0, "Task index should be found");
+    toDoListPO.moveAndClick(getDriver(), toDoListPO.getDeleteButton(index + 1));
+
+    Assert.assertFalse(isItemPresent(taskName), "Task should be removed after deletion");
+  }
+
+  private boolean isItemPresent(String expectedText) {
+    return toDoListPO.getItems().stream()
+        .anyMatch(item -> item.getText().equalsIgnoreCase(expectedText));
+  }
+
+  private int findItemIndex(String expectedText) {
+    List<WebElement> items = toDoListPO.getItems();
+    for (int i = 0; i < items.size(); i++) {
+      if (items.get(i).getText().equalsIgnoreCase(expectedText)) {
+        return i;
+      }
+    }
+    return -1;
+  }
 }

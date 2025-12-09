@@ -1,0 +1,10 @@
+.DS_Store
+target/
+test-output/
+allure-results/
+.classpath
+.project
+.settings/
+*.iml
+*.log
+/src/test/resources/config.properties.local
